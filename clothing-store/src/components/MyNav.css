@@ -1,0 +1,14 @@
+.nav-main{
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-top{
+    background-color: black;
+    flex: 30%;
+}
+
+.nav-bottom{
+    background-color: grey;
+    flex: 70%;
+}

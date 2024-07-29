@@ -1,11 +1,15 @@
+import React from 'react';
 import './App.css';
+import MyNav from './components/MyNav';
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
-      shafay is here and he is learning react but he is not getting it.
-    </div>
+    <>
+      <MyNav/>
+
+    </>
   );
-}
+};
 
 export default App;

@@ -1,15 +1,24 @@
-// create a button to navigate to the cart page
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './MyNav.css';
 
-const MyNav = () => {
+function MyNav() {
     return (
-        <div>
-            <Link to="/cart">
-                <button>Cart</button>
-            </Link>
-        </div>
+        <>
+            <div className="nav-main">
+
+                <div className="nav-top">
+
+                </div>
+
+                <div className="nav-bottom">
+
+                </div>
+
+
+            </div>
+        
+        </>
     );
-};
+}
 
 export default MyNav;
