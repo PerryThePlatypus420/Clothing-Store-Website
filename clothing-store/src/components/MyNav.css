@@ -1,14 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Titan+One&display=swap');
+
+.titan-one-regular {
+    font-family: "Titan One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .nav-main{
     display: flex;
     flex-direction: column;
+    font-family:Mukta, sans-serif;
+    width: 100%;
 }
 
 .nav-top{
     background-color: black;
-    flex: 30%;
+    color: white;
+    text-align: center;
+    padding: 10px;
 }
 
 .nav-bottom{
-    background-color: grey;
-    flex: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 13vh;
+}
+
+.logo-and-name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.swoosh-logo{
+    width: 100px;
+    height: 50px;
+}
+
+.swoosh-text{
+    font-size: 2em;
+    margin-left: 10px;
+}
+
+.cart-svg{
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
 }
