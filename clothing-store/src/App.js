@@ -1,24 +1,23 @@
 import React from 'react';
 import './App.css';
 import MyNav from './components/MyNav';
-import Cover from './components/Cover';
-import Categories from './components/Categories';
-import SummerCollection from './components/SummerCollection';
 import Footer from './components/Footer';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Category from './pages/Category';
 
 const App = () => {
   return (
-    <>
-      <div className="App">
+    <div className="App">
+      <BrowserRouter>
         <MyNav/>
-        <Cover/>
-        <Categories/>
-        <SummerCollection/>
+        <Routes>
+          <Route index path='/' element={<Home />} />
+          <Route path='/category/:cat' element={<Category />} />
+        </Routes>
         <Footer/>
-
-      </div>
-    </>
+      </BrowserRouter>
+    </div>
   );
 };
 
