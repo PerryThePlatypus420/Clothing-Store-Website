@@ -2,11 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import CartProductCard from '../components/CartProductCard';
 import products from '../products';
 import { CartContext } from '../cartContext';
-import {Link} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 function Cart() {
-
   const { cart } = useContext(CartContext);
 
   const total = Object.keys(cart).reduce((acc, productId) => {
@@ -26,7 +24,7 @@ function Cart() {
           if (productId === 'count') return null;
           const product = products.find(product => product.id == productId);
           return (
-            <div className='col-md-8 col-sm-10 offset-md-2 offset-sm-1'>
+            <div className='col-md-8 col-sm-10 offset-md-2 offset-sm-1 mb-3'>
               <CartProductCard
                 id={product.id}
                 title={product.title}
@@ -36,15 +34,31 @@ function Cart() {
               />
             </div>
           );
-        }
-        )}
-
-        {cart.count > 0 && <h4>Total Items: {cart.count}</h4>}
-        {cart.count > 0 && <h4>Total: Rs. {total}</h4>}
-        {cart.count > 0 && (total >= 2500 ? <h4>You have got free delivery!</h4>: <h4>Rs. {2500 - total} to go for free delivery!</h4>)}
-
+        })}
       </div>
-      {cart.count > 0 ? <button className='btn btn-dark mt-5'>Checkout</button> : <Link to='/' className='btn btn-dark mt-5'>Continue Shopping</Link>}
+      {cart.count > 0 && (
+        <div className="card bg-light mt-3 p-3">
+          <div className="card-body">
+            <h4 className="card-title">Summary</h4>
+            <p className="card-text">Total Items: {cart.count}</p>
+            <p className="card-text">Total: Rs. {total}</p>
+            <p className="card-text">
+              {total >= 2500 ? (
+                <span className="text-success">You have got free delivery!</span>
+              ) : (
+                <span className='text-danger'>Rs. {2500 - total} to go for free delivery!</span>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+      <div className="mt-5">
+        {cart.count > 0 ? (
+          <button className='btn btn-dark'>Checkout</button>
+        ) : (
+          <Link to='/' className='btn btn-dark'>Continue Shopping</Link>
+        )}
+      </div>
     </div>
   );
 }

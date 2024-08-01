@@ -4,11 +4,16 @@ import swooshLogo from '../assets/swoosh-logo.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../cartContext';
+import { FaHeart } from "react-icons/fa";
+import { WishlistContext } from '../wishlistContext';
 
 function MyNav() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const categories = ["Tees", "Button-Shirts", "Pants", "Shoes", "Accessories"];
     const { cart } = useContext(CartContext);
+
+    const { wishlist } = useContext(WishlistContext);
+
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -44,10 +49,16 @@ function MyNav() {
                     </div>
 
                     <div className="d-flex align-items-center">
-                        <button className="sidebar-toggle" onClick={toggleSidebar}>
+                        <button className="sidebar-toggle mx-2" onClick={toggleSidebar}>
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <Link to='/cart' className="position-relative me-3">
+                        <Link to='/wishlist' className="position-relative text-black me-3">
+                            <FaHeart style={{fontSize:"25px"}}/>
+                            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {Object.keys(wishlist).length}
+                            </span>
+                        </Link>
+                        <Link to='/cart' className="position-relative mx-2 me-3">
                             <svg xmlns="http://www.w3.org/2000/svg" id="cart-svg" viewBox="0 0 24 24" width="24" height="24">
                                 <path d="M22.713,4.077A2.993,2.993,0,0,0,20.41,3H4.242L4.2,2.649A3,3,0,0,0,1.222,0H1A1,1,0,0,0,1,2h.222a1,1,0,0,1,.993.883l1.376,11.7A5,5,0,0,0,8.557,19H19a1,1,0,0,0,0-2H8.557a3,3,0,0,1-2.82-2h11.92a5,5,0,0,0,4.921-4.113l.785-4.354A2.994,2.994,0,0,0,22.713,4.077ZM21.4,6.178l-.786,4.354A3,3,0,0,1,17.657,13H5.419L4.478,5H20.41A1,1,0,0,1,21.4,6.178Z" />
                                 <circle cx="7" cy="22" r="2" />
