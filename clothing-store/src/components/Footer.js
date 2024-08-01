@@ -3,23 +3,26 @@ import './Footer.css';
 import swooshLogoWhite from '../assets/swoosh-logo-white.png';
 
 
-function Footer(){
-    return(
+function Footer() {
+    return (
+        
         <div className="footer">
 
             <div className="footer-content">
 
                 <div className="footer-description">
-                    <span className='logo-and-name'>
-                        <img className='swoosh-logo' src={swooshLogoWhite} alt="swoosh logo" />
-                        <p className='swoosh-text titan-one-regular'>SWOOSH</p>
-                    </span>
-                    
-                    <span><b>SWOOSH</b> is a diverse unisex clothing brand with a goal to combine art, culture, style 
-                    and comfort.</span>
+
+                <div className="swoosh-brand-footer mb-3 ">
+                    <div to='/' className="swoosh-link-footer">
+                        <img src={swooshLogoWhite} alt="swoosh logo" className="swoosh-logo-footer" />
+                        <span className="swoosh-text-footer titan-one-regular text-white">SWOOSH</span>
+                    </div>
                 </div>
 
-                {/* <br/> */}
+                    <span><b>SWOOSH</b> is a diverse unisex clothing brand with a goal to combine art, culture, style
+                        and comfort.</span>
+                </div>
+
 
                 <div>
                     <h3>Information</h3>
@@ -34,8 +37,8 @@ function Footer(){
 
             </div>
 
-            <br/>
-            <hr className="hori"/>
+            <br />
+            <hr className="hori mb-3" />
             <p>© 2024 All Rights Reserved</p>
         </div>
     );

@@ -1,52 +1,36 @@
 import React from "react";
 import './Categories.css';
-import pants from '../assets/trousers.png'
-import tee from '../assets/tshirt.png'
-import shirt from '../assets/shirt.png'
-import shoes from '../assets/shoes.png'
-import ring from '../assets/ring.png'
+import pants from '../assets/trousers.png';
+import tee from '../assets/tshirt.png';
+import shirt from '../assets/shirt.png';
+import shoes from '../assets/shoes.png';
+import ring from '../assets/ring.png';
+import { Link } from "react-router-dom";
 
 function Categories() {
+
+  const categories = [
+    { category: "Tees", img: tee },
+    { category: "Button-Shirts", img: shirt },
+    { category: "Pants", img: pants },
+    { category: "Shoes", img: shoes },
+    { category: "Accessories", img: ring }
+  ];
+
   return (
-
-    <div className="categories">
-
-      <div className="category-item">
-        <div className="img-div">
-          <img src={tee} alt="pants" className="category-img" />
-        </div>
-        <p>Tees</p>
+    <>
+      <h1 style={{ marginTop: "30px" }}>Categories</h1>
+      <div className="categories">
+        {categories.map((item, index) => (
+          <div className="category-item" key={index}>
+            <Link to={`/category/${item.category}`} className="img-div">
+              <img src={item.img} alt={item.category} className="category-img" />
+            </Link>
+            <p>{item.category}</p>
+          </div>
+        ))}
       </div>
-
-      <div className="category-item">
-        <div className="img-div">
-          <img src={shirt} alt="pants" className="category-img" />
-        </div>
-        <p>Button Down Shirts</p>
-      </div>
-
-      <div className="category-item">
-        <div className="img-div">
-          <img src={pants} alt="pants" className="category-img" />
-        </div>
-        <p>Pants</p>
-      </div>
-
-      <div className="category-item">
-        <div className="img-div">
-        <img src={shoes} alt="pants" className="category-img" />
-        </div>
-        <p>Shoes</p>
-      </div>
-
-      <div className="category-item">
-        <div className="img-div">
-          <img src={ring} alt="pants" className="category-img" />
-        </div>
-        <p>Accessories</p>
-      </div>
-
-    </div>
+    </>
   );
 }
 

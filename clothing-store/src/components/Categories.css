@@ -23,12 +23,11 @@
 .img-div {
     width: 120px; 
     height: 120px; 
-    background-color: rgb(192, 192, 192);
+    background-color: rgba(192, 192, 192, 0.589);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 7px rgb(136, 136, 136);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition effect */
 }
 
@@ -36,7 +35,6 @@
 .img-div:hover {
     cursor: pointer;
     transform: scale(1.1); /* Slightly enlarge the container */
-    box-shadow: 0 0 12px rgb(87, 87, 87);
 }
 
 /* SVG styling */
@@ -49,4 +47,6 @@
 .category-item p {
     font-size: large;
     font-weight: 600;
+    margin-top: 15px;
+
 }
