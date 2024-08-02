@@ -14,6 +14,7 @@ export const CartProvider = ({ children }) => {
     }, [cart]);
 
     const addItemToCart = (productId, count) => {
+        count = parseInt(count);
         if (cart[productId] === 1 && count === -1) {
             removeItemFromCart(productId);
             toast.success('Product removed from cart');

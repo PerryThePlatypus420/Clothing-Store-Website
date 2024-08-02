@@ -26,7 +26,7 @@ const App = () => {
             <Routes>
               <Route index path='/' element={<Home />} />
               <Route path='/category/:cat' element={<Category />} />
-              <Route path='/product' element={<ProductDetails />} />
+              <Route path='/product/:id' element={<ProductDetails />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/wishlist' element={<Wishlist />} />
               <Route path='/checkout' element={<CheckoutPage />} />

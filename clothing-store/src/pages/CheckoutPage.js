@@ -25,7 +25,7 @@ export default function Checkout() {
                             <form>
                                 <MDBRow className="mb-4">
                                     <MDBCol>
-                                        <MDBInput label='First name' type='text' />
+                                        <MDBInput label='First name' type='text' required/>
                                     </MDBCol>
                                     <MDBCol>
                                         <MDBInput label='Last name' type='text' />
