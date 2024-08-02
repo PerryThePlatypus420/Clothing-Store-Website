@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import './ProductCard.css';
 import { CartContext } from "../cartContext";
 import { FaCartPlus } from "react-icons/fa";

@@ -32,9 +32,9 @@ function MyNav() {
                     </Link>
 
                     <div className="navbar-nav d-none d-lg-flex">
-                        <Link to="/" className="nav-link">Home</Link>
+                        <Link to="/" className="nav-link fw-bold ">Home</Link>
                         <div className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <Link className="nav-link fw-bold dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Categories
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,7 +45,7 @@ function MyNav() {
                                 ))}
                             </ul>
                         </div>
-                        <Link to='/notfound' className="nav-link">About Us</Link>
+                        <Link to='/about-us' className="nav-link fw-bold ">About Us</Link>
                     </div>
 
                     <div className="d-flex align-items-center">

@@ -7,10 +7,13 @@ import Home from "./pages/Home";
 import Category from './pages/Category';
 import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
-import { useState } from 'react';
 import { CartProvider } from './cartContext';
 import { WishlistProvider } from './wishlistContext';
 import Wishlist from './pages/Wishlist';
+import CheckoutPage from './pages/CheckoutPage';
+import Completed from './pages/Completed';
+import AboutUs from './pages/AboutUs';
+import ProductDetails from './pages/ProductDetails';
 
 const App = () => {
 
@@ -23,9 +26,14 @@ const App = () => {
             <Routes>
               <Route index path='/' element={<Home />} />
               <Route path='/category/:cat' element={<Category />} />
+              <Route path='/product' element={<ProductDetails />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/wishlist' element={<Wishlist />} />
+              <Route path='/checkout' element={<CheckoutPage />} />
+              <Route path='/completed' element={<Completed />} />
+              <Route path='/about-us' element={<AboutUs />} />
               <Route path='/*' element={<NotFound />} />
+
             </Routes>
             <Footer />
           </BrowserRouter>

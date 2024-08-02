@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {useContext } from 'react';
 import CartProductCard from '../components/CartProductCard';
 import products from '../products';
 import { CartContext } from '../cartContext';
@@ -54,9 +54,9 @@ function Cart() {
       )}
       <div className="mt-5">
         {cart.count > 0 ? (
-          <button className='btn btn-dark'>Checkout</button>
+          <Link to='/checkout' className='btn btn-dark btn-lg'>Checkout</Link>
         ) : (
-          <Link to='/' className='btn btn-dark'>Continue Shopping</Link>
+          <Link to='/' className='btn btn-dark btn-lg'>Continue Shopping</Link>
         )}
       </div>
     </div>

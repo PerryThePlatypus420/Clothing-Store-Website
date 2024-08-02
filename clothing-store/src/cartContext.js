@@ -33,6 +33,7 @@ export const CartProvider = ({ children }) => {
         const newCart = { ...cart };
         delete newCart[productId];
         setCart({ ...newCart, count: cart.count - cart[productId] });
+        toast.success('Product removed from cart');
     }
 
     return (
