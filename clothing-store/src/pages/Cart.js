@@ -15,7 +15,7 @@ function Cart() {
 
   return (
     <div className="cart mt-5">
-      <h1 className='mb-4'>Cart</h1>
+      <h1 className='mb-5'>Cart</h1>
       <div className='row'>
         {
           cart.count === 0 && <h3>Your cart is empty</h3>

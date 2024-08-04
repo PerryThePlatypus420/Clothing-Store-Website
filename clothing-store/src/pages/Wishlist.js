@@ -37,9 +37,9 @@ function Wishlist() {
                 </div>
                 <div className="mt-5">
                     {wishlistItems.length > 0 ? (
-                        <Link to='/' className='btn btn-dark'>Continue Shopping</Link>
+                        <Link to='/' className='btn btn-dark  btn-lg'>Continue Shopping</Link>
                     ) : (
-                        <Link to='/' className='btn btn-dark'>Start Adding Products</Link>
+                        <Link to='/' className='btn btn-dark  btn-lg'>Start Adding Products</Link>
                     )}
                 </div>
             </div>

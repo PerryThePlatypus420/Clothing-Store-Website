@@ -1,11 +1,41 @@
-import React from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBInput, MDBListGroup, MDBListGroupItem, MDBRow, MDBTextArea, MDBTypography } from 'mdb-react-ui-kit';
+import React, { useState, useContext } from 'react';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCol, MDBInput, MDBListGroup, MDBListGroupItem, MDBRow, MDBTextArea, MDBTypography } from 'mdb-react-ui-kit';
+import { Link, useNavigate } from 'react-router-dom';
 import products from '../products';
 import { CartContext } from '../cartContext';
-import { Link } from 'react-router-dom';
 
 export default function Checkout() {
-    const { cart } = React.useContext(CartContext);
+    const { cart } = useContext(CartContext);
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        city: '',
+        address: '',
+        phone: '',
+        email: '',
+        additionalInfo: ''
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const requiredFields = ['firstName', 'lastName', 'city', 'address', 'phone', 'email'];
+        const isFormValid = requiredFields.every(field => formData[field].trim() !== '');
+
+        if (isFormValid) {
+            navigate('/completed');
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    };
 
     const total = Object.keys(cart).reduce((acc, productId) => {
         if (productId === 'count') return acc;
@@ -19,25 +49,81 @@ export default function Checkout() {
                 <MDBCol md="8" className="mb-4">
                     <MDBCard className="mb-4">
                         <MDBCardHeader className="py-3">
-                            <MDBTypography tag="h5" className="mb-0">Biling details</MDBTypography>
+                            <MDBTypography tag="h5" className="mb-0">Billing details</MDBTypography>
                         </MDBCardHeader>
                         <MDBCardBody>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <MDBRow className="mb-4">
                                     <MDBCol>
-                                        <MDBInput label='First name' type='text' required/>
+                                        <MDBInput 
+                                            label='First name' 
+                                            type='text' 
+                                            name='firstName'
+                                            value={formData.firstName}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
                                     </MDBCol>
                                     <MDBCol>
-                                        <MDBInput label='Last name' type='text' />
+                                        <MDBInput 
+                                            label='Last name' 
+                                            type='text' 
+                                            name='lastName'
+                                            value={formData.lastName}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
                                     </MDBCol>
                                 </MDBRow>
 
-                                <MDBInput label='Company name' type='text' className="mb-4" />
-                                <MDBInput label='Address' type='text' className="mb-4" />
-                                <MDBInput label='Email' type='text' className="mb-4" />
-                                <MDBInput label='Phone' type='text' className="mb-4" />
-                                <MDBTextArea label='Additional information' rows={4} className="mb-4" />
+                                <MDBInput 
+                                    label='City' 
+                                    type='text' 
+                                    className="mb-4" 
+                                    name='city'
+                                    value={formData.city}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <MDBInput 
+                                    label='Complete Address' 
+                                    type='text' 
+                                    className="mb-4" 
+                                    name='address'
+                                    value={formData.address}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <MDBInput 
+                                    label='Phone' 
+                                    type='tel' 
+                                    className="mb-4" 
+                                    name='phone'
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <MDBInput 
+                                    label='Email' 
+                                    type='email' 
+                                    className="mb-4" 
+                                    name='email'
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <MDBTextArea 
+                                    label='Additional information' 
+                                    rows={4} 
+                                    className="mb-4" 
+                                    name='additionalInfo'
+                                    value={formData.additionalInfo}
+                                    onChange={handleInputChange}
+                                />
 
+                                <MDBBtn type='submit' className='bg-dark' size="lg" block>
+                                    Make purchase
+                                </MDBBtn>
                             </form>
                         </MDBCardBody>
                     </MDBCard>
@@ -64,16 +150,10 @@ export default function Checkout() {
                                     <span><strong>{total < 2500 ? total + 250 : total}</strong></span>
                                 </MDBListGroupItem>
                             </MDBListGroup>
-
-                            <Link to='/completed'>
-                                <MDBBtn className='bg-dark' size="lg" block>
-                                    Make purchase
-                                </MDBBtn>
-                            </Link>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
-        </div >
+        </div>
     );
 }
