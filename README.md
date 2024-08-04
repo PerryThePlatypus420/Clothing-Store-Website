@@ -46,6 +46,7 @@ This project is a React-based clothing store website with Bootstrap styling. It 
 
 All the products are defind in an array ofobjects in the products.js file in the src folder.
 All the routes are defind in the root element i.e App.js file.
+Any route other than the defined routes lead to a NotFound page.
 The main two functionalities added are the wishlist and cart functionalities. Both of them are implemented using Context Hooks of React.
 
 ## Usage
