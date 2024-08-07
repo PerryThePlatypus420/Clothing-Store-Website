@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || { count: 0 });
+    const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart') || 0) || { count: 0 });
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));

@@ -6,6 +6,8 @@ import { useContext } from 'react';
 import { CartContext } from '../cartContext';
 import { FaHeart } from "react-icons/fa";
 import { WishlistContext } from '../wishlistContext';
+import { FiMenu } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 
 function MyNav() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,9 +34,9 @@ function MyNav() {
                     </Link>
 
                     <div className="navbar-nav d-none d-lg-flex">
-                        <Link to="/" className="nav-link fw-bold ">Home</Link>
+                        <Link to="/" className="nav-link">Home</Link>
                         <div className="nav-item dropdown">
-                            <Link className="nav-link fw-bold dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Categories
                             </Link>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,13 +47,16 @@ function MyNav() {
                                 ))}
                             </ul>
                         </div>
-                        <Link to='/about-us' className="nav-link fw-bold ">About Us</Link>
+                        <Link to='/about-us' className="nav-link">About Us</Link>
                     </div>
 
                     <div className="d-flex align-items-center">
                         <button className="sidebar-toggle mx-2" onClick={toggleSidebar}>
-                            <span className="navbar-toggler-icon"></span>
+                            <h4><FiMenu /></h4>
                         </button>
+                        <Link to='/login' className="position-relative text-black mx-2 me-3">
+                            <FaRegUser  style={{fontSize:"25px"}}/>
+                        </Link>
                         <Link to='/wishlist' className="position-relative text-black me-3">
                             <FaHeart style={{fontSize:"25px"}}/>
                             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

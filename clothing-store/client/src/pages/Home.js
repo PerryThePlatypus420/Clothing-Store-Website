@@ -10,6 +10,9 @@ function Home() {
     return (
         <>
             <Cover />
+            
+            <h1 style={{ marginTop: "30px" }}>Categories</h1>
+
             <Categories />
             <SummerCollection />
         </>

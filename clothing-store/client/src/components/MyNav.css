@@ -26,9 +26,10 @@
     font-weight: 500;
     color: #000000 !important;
     margin-right: 35px;
+    transition: all 0.3s ease;
 }
 
-.nav-links:hover {
+.nav-link:hover {
     color: rgb(112, 118, 136) !important;
 }
 

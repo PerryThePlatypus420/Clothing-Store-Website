@@ -5,9 +5,10 @@ import tee from '../assets/tshirt.png';
 import shirt from '../assets/shirt.png';
 import shoes from '../assets/shoes.png';
 import ring from '../assets/ring.png';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function Categories() {
+  const { cat } = useParams();
 
   const categories = [
     { category: "Tees", img: tee },
@@ -19,11 +20,13 @@ function Categories() {
 
   return (
     <>
-      <h1 style={{ marginTop: "30px" }}>Categories</h1>
       <div className="categories">
         {categories.map((item, index) => (
           <div className="category-item" key={index}>
-            <Link to={`/category/${item.category}`} className="img-div">
+            <Link 
+              to={`/category/${item.category}`} 
+              className={`img-div ${cat === item.category ? 'active' : ''}`}
+            >
               <img src={item.img} alt={item.category} className="category-img" />
             </Link>
             <p>{item.category}</p>

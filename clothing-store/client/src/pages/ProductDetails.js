@@ -1,11 +1,11 @@
 import React from "react";
-import products from "../products";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../cartContext";
 import { useContext } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { WishlistContext } from "../wishlistContext";
 import Heart from "react-animated-heart";
+import { ThreeDots } from "react-loader-spinner";
 
 
 function Product() {
@@ -13,11 +13,36 @@ function Product() {
   const { toggleItemInWishlist, isInWishlist } = useContext(WishlistContext);
 
   const { id } = useParams();
-  const product = products.find((product) => product.id == id);
+
+  const [loading, setLoading] = React.useState(true);
+
+  const [product, setProduct] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch(`http://localhost:3001/api/products/${id}`);
+      const data = await response.json();
+      setProduct(data);
+      setLoading(false);
+    };
+    fetchProduct();
+  }, [id]);
+
   const [items, setItems] = React.useState(1);
 
-  if (!product) {
-    return <div>Product not found</div>;
+  if (loading) {
+    return <div className="d-flex justify-content-center align-items-center vh-100">
+      <ThreeDots
+        visible={true}
+        height="80"
+        width="80"
+        color="black"
+        radius="9"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />
+    </div>
   }
 
   const {

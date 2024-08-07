@@ -14,6 +14,7 @@ import CheckoutPage from './pages/CheckoutPage';
 import Completed from './pages/Completed';
 import AboutUs from './pages/AboutUs';
 import ProductDetails from './pages/ProductDetails';
+import Login from './pages/Login';
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
               <Route path='/product/:id' element={<ProductDetails />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/wishlist' element={<Wishlist />} />
+              <Route path='/login' element={<Login />} />
               <Route path='/checkout' element={<CheckoutPage />} />
               <Route path='/completed' element={<Completed />} />
               <Route path='/about-us' element={<AboutUs />} />
