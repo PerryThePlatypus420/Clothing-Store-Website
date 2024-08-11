@@ -1,6 +1,4 @@
-// userContext.js
 import React, { useState, createContext, useEffect } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 
 export const UserContext = createContext(null);
 
