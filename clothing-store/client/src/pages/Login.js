@@ -9,6 +9,7 @@ import {
     MDBCheckbox
 } from 'mdb-react-ui-kit';
 import { UserContext } from '../userContext'; // Import UserContext
+import { useNavigate} from 'react-router-dom';
 
 function Login() {
     const { login } = useContext(UserContext); // Access the login function from UserContext
@@ -22,6 +23,8 @@ function Login() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [termsAccepted, setTermsAccepted] = useState(false);
+    const navigate = useNavigate();
+
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -73,6 +76,12 @@ function Login() {
 
             setSuccess(activeTab === 'login' ? 'Logged in successfully' : 'Registered successfully');
             setFormData({ name: '', username: '', email: '', password: '' }); // Clear form data
+
+            // Navigate to the homepage only if login was successful
+            if (activeTab === 'login') {
+                navigate('/'); 
+            }
+
         } catch (error) {
             setError(error.message);
         }
