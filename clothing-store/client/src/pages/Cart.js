@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import CartProductCard from '../components/CartProductCard';
 import { CartContext } from '../cartContext';
 import { Link } from 'react-router-dom';
+import { ThreeDots } from "react-loader-spinner";
+
 
 function Cart() {
   const { cart } = useContext(CartContext);
@@ -48,7 +50,18 @@ function Cart() {
     return acc + product.price * quantity;
   }, 0);
 
-  if (loading) return <h3>Loading...</h3>;
+  if (loading) return <div className="d-flex justify-content-center align-items-center vh-100">
+    <ThreeDots
+      visible={true}
+      height="80"
+      width="80"
+      color="black"
+      radius="9"
+      ariaLabel="three-dots-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+  </div>;
   if (error) return <h3>Error: {error}</h3>;
 
   return (

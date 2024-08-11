@@ -4,130 +4,115 @@ import {
     MDBTabs,
     MDBTabsItem,
     MDBTabsLink,
-    MDBTabsContent,
-    MDBTabsPane,
     MDBBtn,
-    MDBIcon,
     MDBInput,
     MDBCheckbox
-}
-    from 'mdb-react-ui-kit';
+} from 'mdb-react-ui-kit';
 
-function App() {
+function Login() {
+    const [activeTab, setActiveTab] = useState('login');
+    const [formData, setFormData] = useState({
+        name: '',
+        username: '',
+        email: '',
+        password: ''
+    });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [termsAccepted, setTermsAccepted] = useState(false);
 
-    const [justifyActive, setJustifyActive] = useState('tab1');;
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+        setError('');
+        setSuccess('');
+    };
 
-    const handleJustifyClick = (value) => {
-        if (value === justifyActive) {
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData({
+            ...formData,
+            [id]: value
+        });
+    };
+
+    const handleTermsChange = (e) => {
+        setTermsAccepted(e.target.checked);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (activeTab === 'register' && !termsAccepted) {
+            setError('You must accept the terms and conditions to register.');
             return;
         }
+        try {
+            const endpoint = activeTab === 'login' ? 'http://localhost:3001/api/users/login' : 'http://localhost:3001/api/users/register';
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        setJustifyActive(value);
+            if (!response.ok) {
+                const result = await response.json();
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            setSuccess(activeTab === 'login' ? 'Logged in successfully' : 'Registered successfully');
+            setFormData({ name: '', username: '', email: '', password: '' }); // Clear form data
+        } catch (error) {
+            setError(error.message);
+        }
     };
 
     return (
         <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-
             <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
                 <MDBTabsItem>
-                    <MDBTabsLink onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>
+                    <MDBTabsLink onClick={() => handleTabChange('login')} active={activeTab === 'login'}>
                         Login
                     </MDBTabsLink>
                 </MDBTabsItem>
                 <MDBTabsItem>
-                    <MDBTabsLink onClick={() => handleJustifyClick('tab2')} active={justifyActive === 'tab2'}>
+                    <MDBTabsLink onClick={() => handleTabChange('register')} active={activeTab === 'register'}>
                         Register
                     </MDBTabsLink>
                 </MDBTabsItem>
             </MDBTabs>
 
-            <MDBTabsContent>
+            {error && <p className="text-danger">{error}</p>}
+            {success && <p className="text-success">{success}</p>}
 
-                {/* <MDBTabsPane show={justifyActive === 'tab1'}> */}
-                {justifyActive === 'tab1' && (<>
-                    {/* <div className="text-center mb-3">
-                        <p>Sign in with:</p>
+            <form onSubmit={handleSubmit}>
+                {activeTab === 'login' && (
+                    <>
+                        <MDBInput wrapperClass='mb-4' label='Email address' id='email' type='email' value={formData.email} onChange={handleChange} />
+                        <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' value={formData.password} onChange={handleChange} />
+                        <MDBBtn className="btn btn-dark mb-4 w-100" type="submit">Sign in</MDBBtn>
+                    </>
+                )}
 
-                        <div className='d-flex justify-content-between mx-auto' style={{ width: '40%' }}>
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='facebook-f' size="sm" />
-                            </MDBBtn>
-
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='twitter' size="sm" />
-                            </MDBBtn>
-
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='google' size="sm" />
-                            </MDBBtn>
-
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='github' size="sm" />
-                            </MDBBtn>
+                {activeTab === 'register' && (
+                    <>
+                        <MDBInput wrapperClass='mb-4' label='Name' id='name' type='text' value={formData.name} onChange={handleChange} />
+                        <MDBInput wrapperClass='mb-4' label='Username' id='username' type='text' value={formData.username} onChange={handleChange} />
+                        <MDBInput wrapperClass='mb-4' label='Email' id='email' type='email' value={formData.email} onChange={handleChange} />
+                        <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' value={formData.password} onChange={handleChange} />
+                        <div className='d-flex justify-content-center mb-4'>
+                            <MDBCheckbox name='terms' id='terms' checked={termsAccepted} onChange={handleTermsChange} label='I have read and agree to the terms' />
                         </div>
-
-                        <p className="text-center mt-3">or:</p>
-                    </div> */}
-
-                    <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' />
-                    <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' />
-
-                    <div className="d-flex justify-content-between mx-4 mb-4">
-                        <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-                        <a href="!#">Forgot password?</a>
-                    </div>
-
-                    <MDBBtn className="btn btn-dark mb-4 w-100">Sign in</MDBBtn>
-                    {/* <p className="text-center">Not a member? <button className='btn btn-secondary btn-sm mx-1' onClick={() => setJustifyActive("tab2")}>Register</button></p> */}
-
-                    {/* </MDBTabsPane> */}
-                </>)}
-
-                {/* <MDBTabsPane show={justifyActive === 'tab2'}> */}
-                {/* <MDBTabsPane show={justifyActive === 'tab2'}> */}
-                {justifyActive === 'tab2' && (<>
-                    {/* <div className="text-center mb-3">
-                        <p>Sign up with:</p>
-
-                        <div className='d-flex justify-content-between mx-auto' style={{ width: '40%' }}>
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='facebook-f' size="sm" />
-                            </MDBBtn>
-
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='twitter' size="sm" />
-                            </MDBBtn>
-
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='google' size="sm" />
-                            </MDBBtn>
-
-                            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                                <MDBIcon fab icon='github' size="sm" />
-                            </MDBBtn>
-                        </div>
-
-                        <p className="text-center mt-3">or:</p>
-                    </div> */}
-
-                    <MDBInput wrapperClass='mb-4' label='Name' id='form1' type='text' />
-                    <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' />
-                    <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email' />
-                    <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password' />
-
-                    <div className='d-flex justify-content-center mb-4'>
-                        <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I have read and agree to the terms' />
-                    </div>
-
-                    <MDBBtn className="btn btn-dark mb-4 w-100">Sign up</MDBBtn>
-
-                    {/* </MDBTabsPane> */}
-                </>)}
-
-            </MDBTabsContent>
-
+                        <MDBBtn className="btn btn-dark mb-4 w-100" type="submit" disabled={!termsAccepted}>Sign up</MDBBtn>
+                    </>
+                )}
+            </form>
         </MDBContainer>
     );
 }
 
-export default App;
+export default Login;

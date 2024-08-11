@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCol, MDBInput, MDBListGroup, MDBListGroupItem, MDBRow, MDBTextArea, MDBTypography } from 'mdb-react-ui-kit';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../cartContext';
+import { ThreeDots } from "react-loader-spinner";
+
 
 export default function Checkout() {
     const { cart } = useContext(CartContext);
@@ -60,7 +62,7 @@ export default function Checkout() {
         }));
     };
 
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const requiredFields = ['firstName', 'lastName', 'city', 'address', 'phone', 'email'];
@@ -106,7 +108,18 @@ export default function Checkout() {
         return acc + product.price * quantity;
     }, 0);
 
-    if (loading) return <h3>Loading...</h3>;
+    if (loading) return <div className="d-flex justify-content-center align-items-center vh-100">
+        <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="black"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+        />
+    </div>;
     if (error) return <h3>Error: {error}</h3>;
 
     return (
