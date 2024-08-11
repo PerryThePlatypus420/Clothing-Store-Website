@@ -123,26 +123,18 @@
     padding-left: 20px;
 }
 
-.dropdown-toggle {
-    cursor: pointer;
+.dropdown-content.show {
+    display: flex;
 }
 
-.dropdown-toggle:hover + .dropdown-content,
-.dropdown-content:hover {
-    display: flex;
+.dropdown-toggle {
+    cursor: pointer;
 }
 
 .dropdown-content a {
     text-decoration: none;
     color: #000;
     margin: 5px 0;
-}
-
-.sidebar-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
 }
 
 /* Media queries */

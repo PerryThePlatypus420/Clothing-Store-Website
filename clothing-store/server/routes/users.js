@@ -2,11 +2,12 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const authenticateToken = require('./auth');
 
 const router = express.Router();
 
 // Secret key for JWT (keep this secure and private)
-const JWT_SECRET = 'your_jwt_secret_key';
+const JWT_SECRET = 'randomdigits_1234567890';
 
 // Register Route
 router.post('/register', async (req, res) => {
@@ -60,10 +61,14 @@ router.post('/login', async (req, res) => {
         // Create JWT token
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
 
-        res.json({ token });
+        res.json({ token, user: { id: user._id, name: user.name, username: user.username, email: user.email, cart: user.cart, wishlist: user.wishlist } });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
     }
+});
+
+router.get('/me', authenticateToken, (req, res) => {
+    res.json({ user: req.user });
 });
 
 module.exports = router;

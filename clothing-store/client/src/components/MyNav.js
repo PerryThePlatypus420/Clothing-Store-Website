@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MyNav.css';
 import swooshLogo from '../assets/swoosh-logo.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../cartContext';
-import { FaHeart } from "react-icons/fa";
 import { WishlistContext } from '../wishlistContext';
 import { FiMenu } from "react-icons/fi";
-import { FaRegUser } from "react-icons/fa";
+import { FaHeart, FaRegUser } from "react-icons/fa";
+import { UserContext } from '../userContext';
 
 function MyNav() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const categories = ["Tees", "Button-Shirts", "Pants", "Shoes", "Accessories"];
     const { cart } = useContext(CartContext);
-
     const { wishlist } = useContext(WishlistContext);
+    const { user: contextUser, logout } = useContext(UserContext);
 
+    useEffect(() => {
+        if (contextUser) {
+            setUser(contextUser);
+        }
+    }, [contextUser]);
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+    const toggleCategory = () => setIsCategoryOpen(!isCategoryOpen);
+
+    const handleLogout = () => {
+        logout();
+        setUser(null);
+    };
 
     return (
         <div className="nav-main">
@@ -27,7 +40,6 @@ function MyNav() {
 
             <nav className="navbar navbar-expand-lg navbar-light bg-light nav-bottom">
                 <div className="container">
-
                     <Link to='/' className="navbar-brand swoosh-brand">
                         <img src={swooshLogo} alt="swoosh logo" className="swoosh-logo" />
                         <span className="swoosh-text titan-one-regular">SWOOSH</span>
@@ -51,14 +63,25 @@ function MyNav() {
                     </div>
 
                     <div className="d-flex align-items-center">
-                        <button className="sidebar-toggle mx-2" onClick={toggleSidebar}>
+                        <div className="sidebar-toggle mx-2" onClick={toggleSidebar}>
                             <h4><FiMenu /></h4>
-                        </button>
-                        <Link to='/login' className="position-relative text-black mx-2 me-3">
-                            <FaRegUser  style={{fontSize:"25px"}}/>
-                        </Link>
+                        </div>
+                        {user ? (
+                            <div className="dropdown mx-3">
+                                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {user.username}
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <Link to='/login' className="position-relative text-black mx-2 me-3">
+                                <FaRegUser style={{ fontSize: "25px" }} />
+                            </Link>
+                        )}
                         <Link to='/wishlist' className="position-relative text-black me-3">
-                            <FaHeart style={{fontSize:"25px"}}/>
+                            <FaHeart style={{ fontSize: "25px" }} />
                             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {Object.keys(wishlist).length}
                             </span>
@@ -73,7 +96,6 @@ function MyNav() {
                                 {cart.count}
                             </span>
                         </Link>
-
                     </div>
 
                     <div className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
@@ -81,18 +103,25 @@ function MyNav() {
                         <div className="sidebar-links">
                             <Link to="/" onClick={toggleSidebar}>Home</Link>
                             <div className="dropdown">
-                                <span className="dropdown-toggle">Categories</span>
-                                <div className="dropdown-content">
+                                <span className="dropdown-toggle" onClick={toggleCategory}>Categories</span>
+                                <div className={`dropdown-content ${isCategoryOpen ? 'show' : ''}`}>
                                     {categories.map((category, index) => (
-                                        <Link key={index} to={`/category/${category}`} onClick={toggleSidebar}>{category}</Link>
+                                        <Link 
+                                            key={index} 
+                                            to={`/category/${category}`} 
+                                            onClick={() => {
+                                                toggleSidebar();
+                                                setIsCategoryOpen(false);
+                                            }}
+                                        >
+                                            {category}
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
-                            <Link to='/notfound' onClick={toggleSidebar}>About Us</Link>
+                            <Link to='/about-us' onClick={toggleSidebar}>About Us</Link>
                         </div>
                     </div>
-
-
                 </div>
             </nav>
         </div>

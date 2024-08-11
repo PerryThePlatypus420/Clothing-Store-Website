@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
     MDBContainer,
     MDBTabs,
@@ -8,8 +8,10 @@ import {
     MDBInput,
     MDBCheckbox
 } from 'mdb-react-ui-kit';
+import { UserContext } from '../userContext'; // Import UserContext
 
 function Login() {
+    const { login } = useContext(UserContext); // Access the login function from UserContext
     const [activeTab, setActiveTab] = useState('login');
     const [formData, setFormData] = useState({
         name: '',
@@ -64,6 +66,11 @@ function Login() {
             }
 
             const result = await response.json();
+            const { token, user } = result;
+
+            localStorage.setItem('token', token);
+            login(user); // Pass the user data to UserContext
+
             setSuccess(activeTab === 'login' ? 'Logged in successfully' : 'Registered successfully');
             setFormData({ name: '', username: '', email: '', password: '' }); // Clear form data
         } catch (error) {
