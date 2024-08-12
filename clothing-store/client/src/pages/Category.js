@@ -29,7 +29,10 @@ function Category() {
                 <div className="row my-4">
                     {products.map((product, index) => (
                         <div className="col-md-4 my-3">
-                            <ProductCard id={product.id} title={product.title} price={product.price} img={product.img} />
+                            <ProductCard id={product.id} 
+                            title={product.title} 
+                            price={product.price} 
+                            img={product.img} />
                         </div>
                     ))}
                 </div>

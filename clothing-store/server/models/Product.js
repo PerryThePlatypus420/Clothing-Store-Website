@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Define the schema for the Product model
 const productSchema = new mongoose.Schema({
     category: {
         type: String,
@@ -35,7 +34,6 @@ productSchema.set('toJSON', {
 });
 
 
-// Create the Product model
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;

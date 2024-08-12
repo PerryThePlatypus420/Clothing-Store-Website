@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
 // Get products by multiple IDs
 router.post('/ids', async (req, res) => {
     try {
-        const ids = req.body.ids; // Expecting an array of IDs in the request body
+        const ids = req.body.ids;
         console.log(ids);
         if (!Array.isArray(ids) || ids.length === 0) {
             return res.status(400).json({ message: 'Invalid or empty IDs array' });

@@ -15,7 +15,7 @@ function SummerCollection() {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setProducts(data.map(item => item.productID)); // Assuming the data has productID field
+                setProducts(data.map(item => item.productID));
             } catch (err) {
                 setError(err.message);
             } finally {
